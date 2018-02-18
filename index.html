@@ -1,5 +1,5 @@
 <html>
-<a href="#" class="musicPlay" onclick="interactArt();">Art</a>
+<a href="#" class="musicPlay" touchstart="interactArt();">Art</a>
 <div id="interactiveArt" style="display: none;">
 <style>
     <!-- chris shier, noisia@gmail.com, http://csh.bz -->
@@ -317,9 +317,9 @@ function interactArt() {
 </script>
 
 
-	<button onclick="selectMusic();"> click me </button>
-<a href="#" class="musicStop" onclick="stopMusic();">Stop</a>
-<a href="#" class="musicPlay" onclick="selectMusic();">Play</a>
+
+<a href="#" class="musicStop" touchstart="stopMusic();">Stop</a>
+<a href="#" class="musicPlay" touchstart="selectMusic();">Play</a>
 
 <select id="musicSelect">
 	<option value="1">01 In My Dreams by Kid Cudi</option>
