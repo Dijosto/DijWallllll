@@ -1,0 +1,347 @@
+<html>
+<a href="#" class="musicPlay" onclick="interactArt();">Art</a>
+<div id="interactiveArt" style="display: none;">
+<style>
+    <!-- chris shier, noisia@gmail.com, http://csh.bz -->
+    <!-- ^^^ owner of csh.bz bless his kind soul -->
+    <!-- thank you chris for interactive art, art3mis for the -->
+    <!-- prestine quality music, and misteroutoftime for the idea -->
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <link rel="stylesheet" type="text/css" href="./css/pair.css">
+    <link rel="icon" href="http://csh.bz/favicon.ico">
+    <link rel="image_src" href="http://csh.bz/line/img/05x501.png">
+    <meta property="og:image" content="http://csh.bz/line/img/05x501.png">
+    <style type="text/css">
+    </style>
+	
+
+<canvas id="canvas" height="914" width="725">try this in a browser that supports the canvas tag</canvas>
+
+<script type="text/javascript" async="" src="http://www.google-analytics.com/ga.js"></script>
+<script type="text/javascript" src="./js/window.js"></script>
+<script type="text/javascript" src="./js/mouse.js"></script>
+<script type="text/javascript" src="./js/canvas.js"></script>
+<script type="text/javascript">
+
+function clear(){
+  ctx.clearRect(0,0,cw,ch);
+}
+
+function animloop() {
+  window.requestAnimFrame(animloop);
+
+  ctx.drawImage(canvas, -1,-1, cw+2,ch+2);
+  
+  imageSmoothing(false);
+
+  window.onmousedown=clear;
+  window.ontouchstart=clear;
+
+  timer();
+
+  decay2(0,0,-20, Math.PI + Mouse.clicks + 1); 
+  if (Mouse.x !== -1 && Mouse.y !== -1) {
+    line(4);
+  }
+  if ( (Mouse.x <= 20 && Mouse.y <= 20)  /*top left*/ ||
+   (Mouse.x >= cw-20 && Mouse.y <= 20)  /*top right*/ ||
+   (Mouse.x >= cw-20 && Mouse.y >= ch-20)  /*bottom right*/ ||
+   (Mouse.x <= 20 && Mouse.y >= ch-20)  /* bottom left*/ ) {
+    clearCanvas(0.1);
+   }
+  // fps.show();
+  // drawText(Mouse.clicks, 4, 10);
+}
+animloop();
+
+</script>
+
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-3889624-4']);
+    _gaq.push(['_trackPageview']);
+    (function () {
+        var ga = document.createElement('script');
+        ga.type = 'text/javascript';
+        ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+</div>
+<div id="everythingElse">
+<head>
+<style>
+.interactiveArt {
+	position: left;
+}
+
+.musicPlay {
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #768d87), color-stop(1, #6c7c7c));
+	background:-moz-linear-gradient(top, #768d87 5%, #6c7c7c 100%);
+	background:-webkit-linear-gradient(top, #768d87 5%, #6c7c7c 100%);
+	background:-o-linear-gradient(top, #768d87 5%, #6c7c7c 100%);
+	background:-ms-linear-gradient(top, #768d87 5%, #6c7c7c 100%);
+	background:linear-gradient(to bottom, #768d87 5%, #6c7c7c 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#768d87', endColorstr='#6c7c7c',GradientType=0);
+	background-color:#768d87;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #566963;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:3px 5px;
+	text-decoration:none;
+	
+	
+}
+.musicPlay:hover {
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #6c7c7c), color-stop(1, #768d87));
+	background:-moz-linear-gradient(top, #6c7c7c 5%, #768d87 100%);
+	background:-webkit-linear-gradient(top, #6c7c7c 5%, #768d87 100%);
+	background:-o-linear-gradient(top, #6c7c7c 5%, #768d87 100%);
+	background:-ms-linear-gradient(top, #6c7c7c 5%, #768d87 100%);
+	background:linear-gradient(to bottom, #6c7c7c 5%, #768d87 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#6c7c7c', endColorstr='#768d87',GradientType=0);
+	background-color:#6c7c7c;
+}
+.musicPlay:active {
+	position:center;
+	top:1px;
+}
+
+.musicStop {
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #768d87), color-stop(1, #6c7c7c));
+	background:-moz-linear-gradient(top, #768d87 5%, #6c7c7c 100%);
+	background:-webkit-linear-gradient(top, #768d87 5%, #6c7c7c 100%);
+	background:-o-linear-gradient(top, #768d87 5%, #6c7c7c 100%);
+	background:-ms-linear-gradient(top, #768d87 5%, #6c7c7c 100%);
+	background:linear-gradient(to bottom, #768d87 5%, #6c7c7c 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#768d87', endColorstr='#6c7c7c',GradientType=0);
+	background-color:#768d87;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #566963;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:3px 5px;
+	text-decoration:none;
+
+	
+	
+}
+.musicStop:hover {
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #6c7c7c), color-stop(1, #768d87));
+	background:-moz-linear-gradient(top, #6c7c7c 5%, #768d87 100%);
+	background:-webkit-linear-gradient(top, #6c7c7c 5%, #768d87 100%);
+	background:-o-linear-gradient(top, #6c7c7c 5%, #768d87 100%);
+	background:-ms-linear-gradient(top, #6c7c7c 5%, #768d87 100%);
+	background:linear-gradient(to bottom, #6c7c7c 5%, #768d87 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#6c7c7c', endColorstr='#768d87',GradientType=0);
+	background-color:#6c7c7c;
+}
+.musicStop:active {
+	position:center;
+	top:1px;
+}
+
+
+
+
+
+
+
+
+
+
+select {
+    -webkit-appearance: button;
+    -webkit-border-radius: 2px;
+    -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+    -webkit-padding-end: 20px;
+    -webkit-padding-start: 2px;
+    -webkit-user-select: none;
+    background-image: url(http://i62.tinypic.com/15xvbd5.png), -webkit-linear-gradient(#FAFAFA, #F4F4F4 40%, #E5E5E5);
+    background-position: 97% center;
+    background-repeat: no-repeat;
+    border: 3px solid lightblue;
+    color: grey;
+    font-size: inherit;
+    overflow: hidden;
+    padding: 5px 10px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 300px;
+}
+
+
+
+*{-ms-box-sizing:border-box;
+-moz-box-sizing:border-box;
+-webkit-box-sizing:border-box;box-sizing:border-box;
+margin:0;
+padding:0;
+border:0;
+}
+html,body{width:100%;
+height:100%;
+background:url("https://nem3s.is/bg.png") repeat fixed;
+font-family:'Open Sans',sans-serif;
+font-weight:200;
+text-align: center;}
+
+h1 {
+	color: lightblue;
+	text-align: center;
+	font-size: 12px;
+	margin-top: 100px;
+}
+
+h2 {
+	color: lightblue;
+	text-align: center;
+}
+
+p {
+	color: lightblue;
+	margin: auto;
+	margin-top: 50px;
+	margin-bottom: 75px;
+	width: 300px;
+	text-align: center;
+	font-size: 12px;
+}
+
+div {
+	text-align: center;
+	color: lightblue; 
+	
+}
+
+h3 {
+	
+	margin-bottom: 10px;
+}
+
+a {
+	color: lightblue;
+	text-align: center;
+	
+}
+</style>
+<h2> DijWal Music</h2>
+	<h1> What is this? </h1>
+	<p> this is a site that  I've been working on that will allow you to 
+	play with an interactive background and listen to a variety of different
+	music in extremely high quality FLAC audio.</p>
+
+
+ 
+</head>
+
+
+<body>
+
+<script>
+function stopMusic(){
+	document.getElementById("media").src=""
+}
+function selectMusic(){
+	var select = document.querySelector("#musicSelect");
+	select = select.value;
+	if (select == 1){
+	document.getElementById("media").src ="https://Indexer:qWeR@nem3s.is/files/music/requests/Kid%20Cudi/Man%20On%20The%20Moon%20The%20End%20Of%20Day%20%28Int%27l%20Version%29%20%28Album%29/01%20In%20My%20Dreams%20%28Cudder%20Anthem%29%20%28Album%20Version%20Explicit%29.flac"
+	} else if (select == 2){
+	document.getElementById("media").src ="https://Indexer:qWeR@nem3s.is/files/music/requests/Kid%20Cudi/Man%20On%20The%20Moon%20The%20End%20Of%20Day%20%28Int%27l%20Version%29%20%28Album%29/02%20Soundtrack%202%20My%20Life.flac"
+	} else if (select == 3){
+	document.getElementById("media").src ="https://Indexer:qWeR@nem3s.is/files/music/requests/Kid%20Cudi/Man%20On%20The%20Moon%20The%20End%20Of%20Day%20%28Int%27l%20Version%29%20%28Album%29/03%20Simple%20As...%20%28Album%20Version%20Explicit%29.flac"
+	} else if (select == 4){
+	document.getElementById("media").src ="https://Indexer:qWeR@nem3s.is/files/music/requests/Kid%20Cudi/Man%20On%20The%20Moon%20The%20End%20Of%20Day%20%28Int%27l%20Version%29%20%28Album%29/04%20Solo%20Dolo%20%28nightmare%29%20%28Album%20Version%20Explicit%29.flac"
+	} else if (select == 5){
+	document.getElementById("media").src ="https://Indexer:qWeR@nem3s.is/files/music/requests/Kid%20Cudi/Man%20On%20The%20Moon%20The%20End%20Of%20Day%20%28Int%27l%20Version%29%20%28Album%29/05%20Heart%20Of%20A%20Lion%20%28Kid%20Cudi%20Theme%20Music%29%20%28Album%20Version%20Explicit%29.flac"
+	} else if (select == 6){
+	document.getElementById("media").src ="https://Indexer:qWeR@nem3s.is/files/music/requests/Kid%20Cudi/Man%20On%20The%20Moon%20The%20End%20Of%20Day%20%28Int%27l%20Version%29%20%28Album%29/06%20My%20World%20%28Album%20Version%20Explicit%29.flac"
+	} else if (select == 7){
+	document.getElementById("media").src ="https://Indexer:qWeR@nem3s.is/files/music/requests/Kid%20Cudi/Man%20On%20The%20Moon%20The%20End%20Of%20Day%20%28Int%27l%20Version%29%20%28Album%29/07%20Day%20%27N%27%20Nite.flac"
+	} else if (select == 8){
+	document.getElementById("media").src ="https://Indexer:qWeR@nem3s.is/files/music/requests/Kid%20Cudi/Man%20On%20The%20Moon%20The%20End%20Of%20Day%20%28Int%27l%20Version%29%20%28Album%29/08%20Sky%20Might%20Fall%20%28Album%20Version%20Explicit%29.flac"
+	} else if (select == 9){
+	document.getElementById("media").src ="https://Indexer:qWeR@nem3s.is/files/music/requests/Kid%20Cudi/Man%20On%20The%20Moon%20The%20End%20Of%20Day%20%28Int%27l%20Version%29%20%28Album%29/09%20Enter%20Galactic%20%28Love%20Connection%20Part%20I%29%20%28Album%20Version%20Explicit%29.flac"
+	} else if (select == 10){
+	document.getElementById("media").src ="https://Indexer:qWeR@nem3s.is/files/music/requests/Kid%20Cudi/Man%20On%20The%20Moon%20The%20End%20Of%20Day%20%28Int%27l%20Version%29%20%28Album%29/10%20Alive%20%28nightmare%29%20%28Album%20Version%20Explicit%29.flac"
+	} else if (select == 11){
+	document.getElementById("media").src ="https://Indexer:qWeR@nem3s.is/files/music/requests/Kid%20Cudi/Man%20On%20The%20Moon%20The%20End%20Of%20Day%20%28Int%27l%20Version%29%20%28Album%29/11%20Cudi%20Zone%20%28Album%20Version%20Explicit%29.flac"
+	} else if (select == 12){
+	document.getElementById("media").src ="https://Indexer:qWeR@nem3s.is/files/music/requests/Kid%20Cudi/Man%20On%20The%20Moon%20The%20End%20Of%20Day%20%28Int%27l%20Version%29%20%28Album%29/12%20Make%20Her%20Say%20%28New%20Album%20Version%20Explicit%29.flac"
+	} else if (select == 13){
+	document.getElementById("media").src ="https://Indexer:qWeR@nem3s.is/files/music/requests/Kid%20Cudi/Man%20On%20The%20Moon%20The%20End%20Of%20Day%20%28Int%27l%20Version%29%20%28Album%29/13%20Pursuit%20Of%20Happiness%20%28nightmare%29%20%28Album%20Version%20Explicit%29.flac"
+	} else if (select == 14){
+	document.getElementById("media").src ="https://Indexer:qWeR@nem3s.is/files/music/requests/Kid%20Cudi/Man%20On%20The%20Moon%20The%20End%20Of%20Day%20%28Int%27l%20Version%29%20%28Album%29/14%20Hyyerr%20%28Album%20Version%20Explicit%29.flac"
+	} else if (select == 15){
+	document.getElementById("media").src ="https://Indexer:qWeR@nem3s.is/files/music/requests/Kid%20Cudi/Man%20On%20The%20Moon%20The%20End%20Of%20Day%20%28Int%27l%20Version%29%20%28Album%29/15%20Up%20Up%20%26%20Away%20%28Album%20Version%20Explicit%29.flac"
+	} else if (select == 16){
+	document.getElementById("media").src ="https://Indexer:qWeR@nem3s.is/files/music/requests/Kid%20Cudi/Man%20On%20The%20Moon%20The%20End%20Of%20Day%20%28Int%27l%20Version%29%20%28Album%29/16%20Day%20%27N%27%20Nite%20%28Crookers%20Remix%29.flac"
+	}
+}
+</script>
+<script>
+function interactArt() {
+    var x = document.getElementById("interactiveArt");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+	var z = document.getElementById("everythingElse");
+    if (z.style.display === "none") {
+        z.style.display = "block";
+    } else {
+        z.style.display = "none";
+    }
+}
+</script>
+
+
+
+<a href="#" class="musicStop" onclick="stopMusic();">Stop</a>
+<a href="#" class="musicPlay" onclick="selectMusic();">Play</a>
+
+<select id="musicSelect">
+	<option value="1">01 In My Dreams by Kid Cudi</option>
+	<option value="2">02 Soundtrack 2 My Life by Kid Cudi</option>
+	<option value="3">03 Simple As... by Kid Cudi</option>
+	<option value="4">04 Solo Dolo (nightmare) by Kid Cudi</option>
+	<option value="5">05 Heart Of A Lion by Kid Cudi</option>
+	<option value="6">06 My World by Kid Cudi</option>
+	<option value="7">07 Day 'N' Nite by Kid Cudi</option>
+	<option value="8">08 Sky Might Fall by Kid Cudi</option>
+	<option value="9">09 Enter Galactic by Kid Cudi</option>
+	<option value="10">10 Alive (nightmare) by Kid Cudi</option>
+	<option value="11">11 Cudi Zone by Kid Cudi</option>
+	<option value="12">12 Make Her Say by Kid Cudi</option>
+	<option value="13">13 Pursuit Of Happiness (nightmare) by Kid Cudi</option>
+	<option value="14">14 Hyyerr by Kid Cudi</option>
+	<option value="15">15 Up Up & Away by Kid Cudi</option>
+	<option value="16">16 Day 'N' Nite (Crookers Remix) by Kid Cudi</option>
+</select>
+
+</body>
+<video autoplay="" id="media" loop> 
+</video>
+</div>
+</html>
