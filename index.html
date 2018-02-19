@@ -21,12 +21,494 @@
     </style>
 	
 
-<canvas id="canvas" height="914" width="725"></canvas>
-<script type="text/javascript" src="https://raw.githubusercontent.com/Dijosto/DijWal/master/jquery-3.3.1.min.js"></script>
-<script type="text/javascript" async="" src="http://www.google-analytics.com/ga.js"></script>
-<script type="text/javascript" src="http://csh.bz/line/js/window.js"></script>
-<script type="text/javascript" src="http://csh.bz/line/js/mouse.js"></script>
-<script type="text/javascript" src="http://csh.bz/line/js/canvas.js"></script>
+<canvas id="canvas" height="800" width="700">try this in a browser that supports the canvas tag</canvas>
+
+<script type="text/javascript" async="">
+
+</script>
+<script type="text/javascript">
+/**
+ * Author: tim baker http://bon.gs
+ */
+//var cw = window.cw,
+//  ch = window.ch,
+//  cMin = window.cMin,
+//  cMax = window.cMax,
+//  canvas = window.canvas,
+//  ctx = window.ctx;
+
+//var canvas, ctx, cw, ch, cMin, cMax;
+
+function getWindowSize() {
+
+  var w = window,
+    d = document,
+    e = d.documentElement,
+    g = d.getElementsByTagName('body')[0];
+
+  cw = w.innerWidth || e.clientWidth || g.clientWidth;
+  ch = w.innerHeight || e.clientHeight || g.clientHeight;
+  cMin = Math.min(cw, ch);
+  cMax = Math.max(cw, ch);
+}
+
+getWindowSize();
+function sizeCanvas(w, h) {
+  canvas = document.getElementById('canvas');
+  canvas.setAttribute("height", h);
+  canvas.setAttribute("width", w);
+}
+sizeCanvas(cw, ch);
+
+function sizeContext(w, h) {
+  ctx = document.getElementById('canvas').getContext('2d');
+}
+sizeContext(cw, ch);
+
+function windowGotResized() {
+  var canvasCopy = document.createElement("canvas"),
+    ow = cw,
+    oh = ch,
+    contextCopy = canvasCopy.getContext('2d');
+  canvasCopy.setAttribute("width", ow);
+  canvasCopy.setAttribute("height", oh);
+  contextCopy.drawImage(canvas, 0, 0);
+
+  //resize canvas
+  getWindowSize();
+  sizeCanvas(cw, ch);
+
+  //paste copied canvas onto resized canvas
+  ctx.drawImage(canvasCopy, 0, 0, ow, oh, 0, 0, cw, ch);
+  sizeContext(cw, ch);
+
+}
+
+function reloadWindow() {
+  window.location = window.location;
+}
+
+window.onresize = windowGotResized;
+
+window.top.scrollTo(0, 1);
+</script>
+
+<script type="text/javascript">
+
+window.requestSmoothMouse = (function () {
+//http://code.google.com/p/chromium/issues/detail?id=5598
+// ios
+  return window.requestAnimationFrame ||
+    window.webkitRequestAnimationFrame ||
+    window.mozRequestAnimationFrame ||
+    window.oRequestAnimationFrame ||
+    window.msRequestAnimationFrame ||
+    function (callback,  element) {
+      window.setTimeout(callback, 1000 / 60);
+    };
+})();
+
+
+
+var pos = [],
+  Mouse = window.Mouse;
+
+Mouse = {
+  x: -1, 
+  y: -1, 
+  xA: [cw / 2], 
+  yA: [ch / 2], 
+  xDown: -1, 
+  xUp: -1, 
+  yDown: -1,
+  yUp: -1,
+  up: true, 
+  clicks: 0
+};
+
+Mouse.events = {};
+Mouse.events.move = function (e) {
+  // ios
+  if ("touches" in e) e = e.touches[0];
+  if (e.pageX === Mouse.x && e.pageY === Mouse.y) { return; }
+  Mouse.x = e.pageX;
+  Mouse.y = e.pageY;
+};
+
+Mouse.path = [];
+Mouse.path.x = [];
+Mouse.path.y = [];
+Mouse.path.capture = function (x, y) {
+  Mouse.path.x.unshift([x]);
+  Mouse.path.y.unshift([y]);
+  while (Mouse.path.x.length > 32) {
+    Mouse.path.x.pop();
+    Mouse.path.y.pop();
+  }
+};
+Mouse.avg = function (a, followSpeed, x, y) {
+
+  //if (!Array.isArray(pos[a])) {pos[a] = [Mouse.x, Mouse.y]; }
+  if(!Array.isArray(pos[a])) pos[a] = [Mouse.x,Mouse.y];
+  
+  if (x > pos[a][0]) {
+    pos[a][0] += (x - pos[a][0]) / followSpeed;
+  } else if (x < pos[a][0]) {
+    pos[a][0] -= (pos[a][0] - x) / followSpeed;
+  } else {
+    pos[a][0] += 0;
+  }
+  if (y > pos[a][1]) {
+    pos[a][1] += (y - pos[a][1]) / followSpeed;
+  } else if (y < pos[a][1]) {
+    pos[a][1] -= (pos[a][1] - y) / followSpeed;
+  } else {
+    pos[a][1] += 0;
+  }
+  Mouse.xA[a] = Math.round(pos[a][0]);
+  Mouse.yA[a] = Math.round(pos[a][1]);
+};
+
+Mouse.events.up = function (e) {
+  Mouse.down = false;
+  Mouse.up = true;
+  Mouse.xUp = Mouse.x;
+  Mouse.yUp = Mouse.y;
+};
+
+Mouse.events.down = function (e) {
+  if ("touches" in e) {
+    e.preventDefault();
+    e = e.touches[0];
+  }
+  Mouse.down = true;
+  Mouse.up = false;
+  Mouse.clicks += 1;
+  Mouse.xDown = Mouse.x;
+  Mouse.yDown = Mouse.y  
+  Mouse.xUp = Mouse.x;
+  Mouse.yUp = Mouse.y;
+};
+
+function smoothMouse() {
+  if (Mouse.x !== -1 && Mouse.y !== -1) 
+  {  Mouse.avg(0, 5, Mouse.x, Mouse.y);
+    for (var i = 1; i <= 64; i++) {
+      Mouse.avg(i, 3, Mouse.xA[i - 1], Mouse.yA[i - 1]);
+    }
+    Mouse.path.capture(Mouse.xA[0], Mouse.yA[0]);}
+  window.Mouse = Mouse;
+  window.requestSmoothMouse(smoothMouse);
+}
+smoothMouse();
+
+document.addEventListener("mousemove", Mouse.events.move);
+
+document.addEventListener("touchmove", Mouse.events.move);
+document.addEventListener("mousedown", Mouse.events.down);
+
+document.addEventListener("touchstart", Mouse.events.down);
+document.addEventListener("touchend", Mouse.events.up);
+document.addEventListener("mouseup", Mouse.events.up);
+
+</script>
+<script type="text/javascript">
+/**
+ * User: chris
+ * Date: 02/10/12
+ * Time: 9:53 AM
+ */
+// todo: tool switching, path recording
+
+var ctx = document.getElementById('canvas').getContext('2d'),
+  Mouse = window.Mouse,
+  cw = window.cw,
+  ch = window.ch,
+  cMin = window.cMin,
+  cMax = window.cMax,
+  time = 0;
+
+function imageSmoothing(a) {
+  ctx.imageSmoothingEnabled = a;
+  ctx.mozImageSmoothingEnabled = a;
+  ctx.webkitImageSmoothingEnabled = a;
+}
+
+window.requestAnimFrame = (function () {
+  return window.requestAnimationFrame ||
+    window.webkitRequestAnimationFrame ||
+    window.mozRequestAnimationFrame ||
+    window.oRequestAnimationFrame ||
+    window.msRequestAnimationFrame ||
+    function (callback, element) {
+      window.setTimeout(callback, 1000 / 60);
+    };
+})();
+
+function timer() {
+  time += 1;
+}
+
+function hsla(h, s, l, a) {
+  var hue = h === undefined ? 1 : h,
+    sat = s === undefined ? 1 : s,
+    light = l === undefined ? 1 : l,
+    alpha = a === undefined ? 1 : a;
+  return "hsla" + "(" + hue + ", " + sat + "%, " + light + "%, " + alpha + ")";
+}
+
+function hypotenuse(a, b) {
+  return Math.sqrt((a * a) + (b * b || a * a)) / 2;
+};
+
+function simple_moving_averager(period) {
+  //http://rosettacode.org/wiki/Averages/Simple_moving_average#JavaScript
+  var nums = [];
+  return function(num) {
+      nums.push(num);
+      if (nums.length > period)
+          nums.splice(0,1);  // remove the first element of the array
+      var sum = 0;
+      for (var i in nums)
+          sum += nums[i];
+      var n = period;
+      if (nums.length < period)
+          n = nums.length;
+      return(sum/n);
+  }
+}
+
+function clear(){
+  ctx.clearRect(0,0,cw,ch);
+}
+
+function clearCanvas(a) {
+  ctx.fillStyle = hsla(0, 0, 0, a);
+  ctx.fillRect(0, 0, cw, ch);
+}
+clearCanvas(1);
+
+function drawText(text, x, y) {
+  ctx.lineWidth = 2;
+  ctx.fillStyle = "white";
+  ctx.strokeStyle = "black";
+  ctx.strokeText(text, x, y );
+  ctx.fillText(text, x, y);
+}
+
+function pointer() {
+  var size = 20,
+    a = Mouse.x - Mouse.xA[1],
+    b = Mouse.y - Mouse.yA[1],
+    hue = Math.abs(hypotenuse(a, b)) * 4 + 240;
+  ctx.save();
+  ctx.translate(Mouse.xA[2], Mouse.yA[2]);
+  ctx.fillStyle = hsla(hue, 100, 50, 1);
+  ctx.fillRect(-size / 2, -size / 2, size, size);
+  ctx.restore();
+}
+
+var aRandomNumber = Math.random() * 360 + 1;
+function line(width) {
+  ctx.lineWidth = width||2;
+  ctx.beginPath();
+  ctx.moveTo(Mouse.path.x[1], Mouse.path.y[1]);
+  for ( var i = 0; i < 64; i++) {
+    ctx.lineTo(Mouse.xA[i-1],Mouse.yA[i-1]);
+    ctx.lineTo(Mouse.xA[i],Mouse.yA[i]);
+    var a = (Mouse.xA[i] - Mouse.xA[i-1])||1,
+      b = (Mouse.yA[i] - Mouse.yA[i-1])||1,
+      hue = Math.abs( Math.ceil(hypotenuse(a,b)) ) * 8 + 240;
+      ctx.strokeStyle = hsla(hue + (time/2) - (i*4),100,50,1);
+    ctx.stroke();
+    ctx.beginPath();
+  }
+  ctx.stroke();
+}
+
+function lineb(width) {
+  ctx.lineWidth = width||2;
+  ctx.beginPath();
+  for ( var i = 0; i < 64; i++) {
+    ctx.moveTo(Mouse.xA[i-1],Mouse.yA[i-1]);
+    ctx.lineTo(Mouse.xA[i],Mouse.yA[i]);
+      var hue;
+      if (i >= 32 ){
+        hue = time/32 + (Mouse.clicks*90);
+      } else {
+        hue = time/32 + (Mouse.clicks*90) + 240;
+      }
+      var light;
+      if (i % 32 < 16){
+        light = 100;
+      } else {
+        light = 0;
+      }
+      var a = (Mouse.xA[i] - Mouse.xA[i-1])||1,
+        b =( Mouse.yA[i] - Mouse.yA[i-1])||1;
+      ctx.strokeStyle = hsla(0,100,light,1);
+    ctx.stroke();
+    ctx.beginPath();
+  }
+  ctx.stroke();
+}
+
+function linec(width) {
+  ctx.lineWidth = width||2;
+  ctx.beginPath();
+  for ( var i = 0; i < 64; i++) {
+    ctx.moveTo(Mouse.xA[i-1],Mouse.yA[i-1]);
+    ctx.lineTo(Mouse.xA[i],Mouse.yA[i]);
+      var hue;
+      if (i >= 32 ){
+        hue = time/32 + (Mouse.clicks*90);
+      } else {
+        hue = time/32 + (Mouse.clicks*90) + 240;
+      }
+      var light;
+      if (i % 32 < 16){
+        light = 50;
+      } else {
+        light = 0;
+      }
+      var a = (Mouse.xA[i] - Mouse.xA[i-1])||1,
+        b = (Mouse.yA[i] - Mouse.yA[i-1])||1;
+      ctx.strokeStyle = hsla(hue + hypotenuse(a,b)*4 ,100,light,1);
+    ctx.stroke();
+    ctx.beginPath();
+  }
+  ctx.stroke();
+}
+
+function decay(hor,ver, spread, rotate) {
+  var h = hor,
+    v = ver,
+    s = spread||2;
+  ctx.save();
+  ctx.translate(h,v);
+  ctx.rotate(rotate||0);
+  ctx.drawImage(canvas, -s/2, -s/2, cw + s, ch + s);
+  ctx.restore();
+}
+
+function decay2(hor,ver, spread, rotate){
+    var h = hor,
+    v = ver,
+    s = spread||2;
+  ctx.save();
+  ctx.translate(cw/2 + h,ch/2 + v);
+  ctx.rotate(rotate||0);
+  ctx.drawImage(canvas, -s/2 - cw/2, -s/2 - ch/2, cw + s, ch + s);
+  ctx.restore();
+}
+
+function decayR(rotate) {
+  ctx.save();
+  ctx.translate(cw/2, ch/2);
+  ctx.rotate(rotate||0);
+  ctx.drawImage(canvas, -cw/2, -ch/2, cw, ch);
+  ctx.restore();
+}
+
+//EDIT THIS ONE DUMMY
+function decay3(hor,ver, spread, rotate){
+    var h = hor,
+    v = ver,
+    s = spread||2,
+    cDif = cMax-cMin;
+  ctx.save();
+  ctx.translate( -cDif/2, -cDif/2 )//cw-cMax, ch-cMax
+  ctx.drawImage(canvas, 0,0, cw+cDif, ch+cDif)
+  // clearCanvas(1);
+  // ctx.drawImage(canvas, 0,0, cw-cDif, ch-cDif)
+  // ctx.drawImage(canvas, 0,0, cw-cDif, ch-cDif)
+  ctx.restore();
+  drawText(cDif)
+}
+
+function grid(interval, color){
+  ctx.fillStyle = color||"black";
+  for (i = 0; i <= cw; i+= interval){
+    for (j = 0; j <= ch; j += interval){
+      ctx.fillRect(i, j, interval/2, interval/2);
+    }
+  }
+}
+
+function dots(){
+  var hAdj = (Math.random()-0.5) * (Mouse.xA[0] - Mouse.xA[100]),
+    vAdj = (Math.random()-0.5)*10;
+  ctx.strokeStyle =  hsla(time, 100, 50, 1);
+  ctx.fillStyle = hsla(time + 180, 100, 50, 1);
+  ctx.beginPath();
+  ctx.arc(Mouse.x + hAdj ,Mouse.y + vAdj  ,5,0, Math.PI*2, true)
+  ctx.closePath();
+  ctx.fill();
+  ctx.stroke();
+}
+
+function ray(){
+  // var h = Mouse.x - Mouse.xA[0] ,
+  //   v = Mouse.y - Mouse.yA[0];
+
+    var a, b, c;
+      a = {x: Mouse.xA[0], y: Mouse.yA[0] },
+      b = {x: Mouse.x, y: Mouse.y},
+      c = {
+        x: 2 * Mouse.x - Mouse.xA[0],
+        y: 2 * Mouse.y - Mouse.yA[0],
+      } ;
+      a.h = hypotenuse(a.x - b.x, a.y - b.y);
+      b.h = hypotenuse(a.x - c.x, a.y - c.y);
+      c.h = hypotenuse((c.x - b.x)||1, (c.y - b.y)||1);
+
+  var size = (a.h/1.5) + 5,
+    xPosition = a.x + a.h / 2 - c.h,
+    yPosition = a.y + a.h / 2 - c.h;
+   var a = Mouse.x - Mouse.xA[0],
+      b = Mouse.y - Mouse.yA[0],
+      hue = c.h * 1.5 + 240 + time/2;
+
+  ctx.strokeStyle = hsla(0, 0, 0, 1);
+  ctx.fillStyle = hsla(hue + aRandomNumber , 100, 50, 1)
+  ctx.beginPath();
+  ctx.arc(xPosition , yPosition, size , 0 , Math.PI*2 );
+  ctx.closePath();
+  ctx.fill();
+}
+
+var fps = {
+ past : [0],
+ capture : function(){
+    var i = 0;
+    while (this.past.length < cw) {
+      i++;
+      this.past.unshift(Date.now());
+      this.past[i] = 1000/(this.past[i-1] - this.past[i]);
+   }
+   this.past.pop();
+  },
+  sma30 : simple_moving_averager(30),
+  sma60 : simple_moving_averager(60),
+  sma120 : simple_moving_averager(120),
+  show : function (){
+    this.capture();
+    var i = 0,
+      count = 80;
+      ctx.fillStyle = hsla(0, 0, 0, 0.5);
+      ctx.fillRect(cw-count,0,count,41);
+    while (i < count){
+      var n = fps.past[i];
+      ctx.fillStyle = hsla(n * 6 + 180, 100, 40, 0.8);
+      ctx.fillRect(-i + fps.past.length, 40, 1 , -n/3)
+      ctx.fillStyle = hsla(this.sma30(n)*6 + 180, 100, 50, 1);
+      ctx.fillRect(-i + fps.past.length +6 , 40 - this.sma30(n)/3, 1, 2)
+      i++ ;
+    }
+    drawText(Math.round(this.sma60(fps.past[10])),cw-15, 10)
+  }
+}
+window.fps = fps</script>
 <script type="text/javascript">
 
 function clear(){
@@ -76,12 +558,8 @@ animloop();
     })();
 </script>
 </div>
-<head>
 <style>
-.interactiveArt {
-	position: left;
-}
-
+    
 .musicPlay {
 	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #768d87), color-stop(1, #6c7c7c));
 	background:-moz-linear-gradient(top, #768d87 5%, #6c7c7c 100%);
@@ -245,8 +723,10 @@ a {
 	
 }
 </style>
+
+<head>
 <div id="everythingElse">
-<h2> DijWal Music</h2>
+<h2> DijWall Music</h2>
 	<h1> What is this? </h1>
 	<p> this is a site that  I've been working on that will allow you to 
 	play with an interactive background and listen to a variety of different
@@ -260,38 +740,15 @@ a {
 <body>
 
 <script>
-function interactArt() {
-    var x = document.getElementById("interactiveArt");
-    if (x.style.display === "none") {
-        x.style.display = "block";
-    } else {
-        x.style.display = "none";
-    }
-	var z = document.getElementById("everythingElse");
-    if (z.style.display === "none") {
-        z.style.display = "block";
-    } else {
-        z.style.display = "none";
-    }
+
+function stopMusic(){
+	document.getElementById("media").src=""
 }
-</script>
-
-
-
-<script type="text/javascript">
-function musicStahp(){
-                     document.getElementById("media").src=""
-}
-</script>
-<a href="#" class="musicStop" id="musicStahp"onmousedown="musicStahp();">Stop</a>
-
-
-<script type="text/javascript">
-	function musicPlay(){
+function selectMusic(){
 	var select = document.querySelector("#musicSelect");
 	select = select.value;
 	if (select == 1){
-	document.getElementById("media").src ="https://Indexer:qWeR@nem3s.is/files/music/requests/Kid%20Cudi/Man%20On%20The%20Moon%20The%20End%20Of%20Day%20%28Int%27l%20Version%29%20%28Album%29/01%20In%20My%20Dreams%20%28Cudder%20Anthem%29%20%28Album%20Version%20Explicit%29.flac"
+	document.getElementById("media").src ="https://nem3s.is/files/music/requests/Kid%20Cudi/Man%20On%20The%20Moon%20The%20End%20Of%20Day%20%28Int%27l%20Version%29%20%28Album%29/01%20In%20My%20Dreams%20%28Cudder%20Anthem%29%20%28Album%20Version%20Explicit%29.flac"
 	} else if (select == 2){
 	document.getElementById("media").src ="https://Indexer:qWeR@nem3s.is/files/music/requests/Kid%20Cudi/Man%20On%20The%20Moon%20The%20End%20Of%20Day%20%28Int%27l%20Version%29%20%28Album%29/02%20Soundtrack%202%20My%20Life.flac"
 	} else if (select == 3){
@@ -322,12 +779,78 @@ function musicStahp(){
 	document.getElementById("media").src ="https://Indexer:qWeR@nem3s.is/files/music/requests/Kid%20Cudi/Man%20On%20The%20Moon%20The%20End%20Of%20Day%20%28Int%27l%20Version%29%20%28Album%29/15%20Up%20Up%20%26%20Away%20%28Album%20Version%20Explicit%29.flac"
 	} else if (select == 16){
 	document.getElementById("media").src ="https://Indexer:qWeR@nem3s.is/files/music/requests/Kid%20Cudi/Man%20On%20The%20Moon%20The%20End%20Of%20Day%20%28Int%27l%20Version%29%20%28Album%29/16%20Day%20%27N%27%20Nite%20%28Crookers%20Remix%29.flac"
+	} else if (select == 17){
+	    document.getElementById("media").src ="https://nem3s.is/files/music/temp/Chris%20Webby/Webster%27s%20Laboratory%20II%20%28Album%29/01%20Webby%27s%20Lab%202%20%28Intro%29.flac"
+	} else if (select == 18){
+	    document.getElementById("media").src ="https://nem3s.is/files/music/temp/Chris%20Webby/Webster%27s%20Laboratory%20II%20%28Album%29/02%20Knocked%20Down.flac"
+	} else if (select == 19){
+	    document.getElementById("media").src ="https://nem3s.is/files/music/temp/Chris%20Webby/Webster%27s%20Laboratory%20II%20%28Album%29/03%20Ignition%20%28feat.%20Dave%20East%29.flac"
+	} else if (select == 20){
+	    document.getElementById("media").src ="https://nem3s.is/files/music/temp/Chris%20Webby/Webster%27s%20Laboratory%20II%20%28Album%29/04%20On%20My%20Way.flac"
+	} else if (select == 21){
+	    document.getElementById("media").src ="https://nem3s.is/files/music/temp/Chris%20Webby/Webster%27s%20Laboratory%20II%20%28Album%29/05%20Sativa%20%28feat.%20Demrick%20B-Real%20%26%20Zacari%29.flac"
+	} else if (select == 22){
+	    document.getElementById("media").src ="https://nem3s.is/files/music/temp/Chris%20Webby/Webster%27s%20Laboratory%20II%20%28Album%29/06%20Brass%20Tacks%20%28feat.%20D.%20Lector%29.flac"
+	} else if (select == 23){
+	    document.getElementById("media").src ="https://nem3s.is/files/music/temp/Chris%20Webby/Webster%27s%20Laboratory%20II%20%28Album%29/07%20Inebriated.flac"
+	} else if (select == 24){
+	    document.getElementById("media").src ="https://nem3s.is/files/music/temp/Chris%20Webby/Webster%27s%20Laboratory%20II%20%28Album%29/08%20Full%20Steam%20Ahead%20%28feat.%20Futuristic%29.flac"
+	} else if (select == 25){
+	    document.getElementById("media").src ="https://nem3s.is/files/music/temp/Chris%20Webby/Webster%27s%20Laboratory%20II%20%28Album%29/09%20Questionnaire.flac"
+	} else if (select == 26){
+	    document.getElementById("media").src ="https://nem3s.is/files/music/temp/Chris%20Webby/Webster%27s%20Laboratory%20II%20%28Album%29/10%20Imperfect%20%28feat.%20Jaye%20Michelle%29.flac"
+	} else if (select == 27){
+	    document.getElementById("media").src ="https://nem3s.is/files/music/temp/Chris%20Webby/Webster%27s%20Laboratory%20II%20%28Album%29/11%20Can%27t%20Complain%20%28feat.%20Anoyd%29.flac"
+	} else if (select == 28){
+	    document.getElementById("media").src ="https://nem3s.is/files/music/temp/Chris%20Webby/Webster%27s%20Laboratory%20II%20%28Album%29/12%20Jurassic%20Park.flac"
+	} else if (select == 29){
+	    document.getElementById("media").src ="https://nem3s.is/files/music/temp/Chris%20Webby/Webster%27s%20Laboratory%20II%20%28Album%29/13%20Outside%20The%20Box%20%28feat.%20Sincerely%20Collins%29.flac"
+	} else if (select == 30){
+	    document.getElementById("media").src ="https://nem3s.is/files/music/temp/Chris%20Webby/Webster%27s%20Laboratory%20II%20%28Album%29/14%20High%20By%20The%20Beach.flac"
+	} else if (select == 31){
+	    document.getElementById("media").src ="https://nem3s.is/files/music/temp/Chris%20Webby/Webster%27s%20Laboratory%20II%20%28Album%29/15%20Cali%20Dreamin%27%20%28feat.%20Jitta%20On%20The%20Track%29.flac"
+	} else if (select == 32){
+	    document.getElementById("media").src ="https://nem3s.is/files/music/temp/Chris%20Webby/Webster%27s%20Laboratory%20II%20%28Album%29/16%20Chemical%20Romance.flac"
 	}
+	
+	
+	
+	
 }
 </script>
-<a href="#" class="musicPlay" onmousedown="musicPlay();">Play</a>
+<script>
+function interactArt() {
+    var x = document.getElementById("interactiveArt");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+    var z = document.getElementById("everythingElse");
+    if (z.style.display === "none") {
+        z.style.display = "block";
+    } else {
+        z.style.display = "none";
+    }
+}
+</script>
+<script>
+function musicHide(){
+    var c = document.getElementById("controlsM");
+    if (c.style.display === "none") {
+        c.style.display = "block";
+    } else {
+        c.style.display = "none";
+    }
+}
+</script>
+
+<a href="#" class="musicPlay" onmousedown="musicHide();">Hide</a>
+<a href="#" class="musicStop" onmousedown="stopMusic();">Stop</a>
+<a href="#" class="musicPlay" onmousedown="selectMusic();">Play</a>
 
 <select id="musicSelect">
+    <option> -- Kid Cudi --</option>
 	<option value="1">01 In My Dreams by Kid Cudi</option>
 	<option value="2">02 Soundtrack 2 My Life by Kid Cudi</option>
 	<option value="3">03 Simple As... by Kid Cudi</option>
@@ -344,10 +867,32 @@ function musicStahp(){
 	<option value="14">14 Hyyerr by Kid Cudi</option>
 	<option value="15">15 Up Up & Away by Kid Cudi</option>
 	<option value="16">16 Day 'N' Nite (Crookers Remix) by Kid Cudi</option>
+	<option> -- Chris Webby --</option>
+	<option value="17">01 Webby's Lab 2 by Chris Webby</option>
+	<option value="18">02 Knocked Down by Chris Webby</option>
+	<option value="19">03 Ignition (feat. Dave East) by Chris Webby</option>
+	<option value="20">04 On My Way by Chris Webby</option>
+	<option value="21">05 Sativa (feat. Demrick B-Real & Zacari) by Chris Webby</option>
+	<option value="22">05 Sativa (feat. Demrick B-Real & Zacari) by Chris Webby</option>
+	<option value="23">07 Inebriated by Chris Webby</option>
+	<option value="24">08 Full Steam Ahead (feat. Futuristic) by Chris Webby</option>
+	<option value="25">09 Questionnaire by Chris Webby</option>
+	<option value="26">10 Imperfect (feat. Jaye Michelle) by Chris Webby</option>
+	<option value="27">11 Can't Complain (feat. Anoyd) by Chris Webby</option>
+	<option value="28">12 Jurassic Park by Chris Webby</option>
+	<option value="29">13 Outside The Box (feat. Sincerely Collins) by Chris Webby</option>
+	<option value="30">14 High By The Beach by Chris Webby</option>
+	<option value="31">15 Cali Dreamin' (feat. Jitta On The Track) by Chris Webby</option>
+	<option value="32">16 Chemical Romance by Chris Webby</option>
+	
 </select>
+<div id="controlsM">
+<video controls="" autoplay="true" id="media" loop type="audio/flac"></video>
+</video>
+</div>
+
 
 </body>
-<video autoplay="" id="media" loop> 
-</video>
+
 </div>
 </html>
