@@ -1,4 +1,183 @@
 /**
+ * Author: tim baker http://bon.gs
+ */
+//var cw = window.cw,
+//  ch = window.ch,
+//  cMin = window.cMin,
+//  cMax = window.cMax,
+//  canvas = window.canvas,
+//  ctx = window.ctx;
+
+//var canvas, ctx, cw, ch, cMin, cMax;
+
+function getWindowSize() {
+
+  var w = window,
+    d = document,
+    e = d.documentElement,
+    g = d.getElementsByTagName('body')[0];
+
+  cw = w.innerWidth || e.clientWidth || g.clientWidth;
+  ch = w.innerHeight || e.clientHeight || g.clientHeight;
+  cMin = Math.min(cw, ch);
+  cMax = Math.max(cw, ch);
+}
+
+getWindowSize();
+function sizeCanvas(w, h) {
+  canvas = document.getElementById('canvas');
+  canvas.setAttribute("height", h);
+  canvas.setAttribute("width", w);
+}
+sizeCanvas(cw, ch);
+
+function sizeContext(w, h) {
+  ctx = document.getElementById('canvas').getContext('2d');
+}
+sizeContext(cw, ch);
+
+function windowGotResized() {
+  var canvasCopy = document.createElement("canvas"),
+    ow = cw,
+    oh = ch,
+    contextCopy = canvasCopy.getContext('2d');
+  canvasCopy.setAttribute("width", ow);
+  canvasCopy.setAttribute("height", oh);
+  contextCopy.drawImage(canvas, 0, 0);
+
+  //resize canvas
+  getWindowSize();
+  sizeCanvas(cw, ch);
+
+  //paste copied canvas onto resized canvas
+  ctx.drawImage(canvasCopy, 0, 0, ow, oh, 0, 0, cw, ch);
+  sizeContext(cw, ch);
+
+}
+
+function reloadWindow() {
+  window.location = window.location;
+}
+
+window.onresize = windowGotResized;
+
+window.top.scrollTo(0, 1);
+window.requestSmoothMouse = (function () {
+//http://code.google.com/p/chromium/issues/detail?id=5598
+// ios
+  return window.requestAnimationFrame ||
+    window.webkitRequestAnimationFrame ||
+    window.mozRequestAnimationFrame ||
+    window.oRequestAnimationFrame ||
+    window.msRequestAnimationFrame ||
+    function (callback,  element) {
+      window.setTimeout(callback, 1000 / 60);
+    };
+})();
+
+
+
+var pos = [],
+  Mouse = window.Mouse;
+
+Mouse = {
+  x: -1, 
+  y: -1, 
+  xA: [cw / 2], 
+  yA: [ch / 2], 
+  xDown: -1, 
+  xUp: -1, 
+  yDown: -1,
+  yUp: -1,
+  up: true, 
+  clicks: 0
+};
+
+Mouse.events = {};
+Mouse.events.move = function (e) {
+  // ios
+  if ("touches" in e) e = e.touches[0];
+  if (e.pageX === Mouse.x && e.pageY === Mouse.y) { return; }
+  Mouse.x = e.pageX;
+  Mouse.y = e.pageY;
+};
+
+Mouse.path = [];
+Mouse.path.x = [];
+Mouse.path.y = [];
+Mouse.path.capture = function (x, y) {
+  Mouse.path.x.unshift([x]);
+  Mouse.path.y.unshift([y]);
+  while (Mouse.path.x.length > 32) {
+    Mouse.path.x.pop();
+    Mouse.path.y.pop();
+  }
+};
+Mouse.avg = function (a, followSpeed, x, y) {
+
+  //if (!Array.isArray(pos[a])) {pos[a] = [Mouse.x, Mouse.y]; }
+  if(!Array.isArray(pos[a])) pos[a] = [Mouse.x,Mouse.y];
+  
+  if (x > pos[a][0]) {
+    pos[a][0] += (x - pos[a][0]) / followSpeed;
+  } else if (x < pos[a][0]) {
+    pos[a][0] -= (pos[a][0] - x) / followSpeed;
+  } else {
+    pos[a][0] += 0;
+  }
+  if (y > pos[a][1]) {
+    pos[a][1] += (y - pos[a][1]) / followSpeed;
+  } else if (y < pos[a][1]) {
+    pos[a][1] -= (pos[a][1] - y) / followSpeed;
+  } else {
+    pos[a][1] += 0;
+  }
+  Mouse.xA[a] = Math.round(pos[a][0]);
+  Mouse.yA[a] = Math.round(pos[a][1]);
+};
+
+Mouse.events.up = function (e) {
+  Mouse.down = false;
+  Mouse.up = true;
+  Mouse.xUp = Mouse.x;
+  Mouse.yUp = Mouse.y;
+};
+
+Mouse.events.down = function (e) {
+  if ("touches" in e) {
+    e.preventDefault();
+    e = e.touches[0];
+  }
+  Mouse.down = true;
+  Mouse.up = false;
+  Mouse.clicks += 1;
+  Mouse.xDown = Mouse.x;
+  Mouse.yDown = Mouse.y  
+  Mouse.xUp = Mouse.x;
+  Mouse.yUp = Mouse.y;
+};
+
+function smoothMouse() {
+  if (Mouse.x !== -1 && Mouse.y !== -1) 
+  {  Mouse.avg(0, 5, Mouse.x, Mouse.y);
+    for (var i = 1; i <= 64; i++) {
+      Mouse.avg(i, 3, Mouse.xA[i - 1], Mouse.yA[i - 1]);
+    }
+    Mouse.path.capture(Mouse.xA[0], Mouse.yA[0]);}
+  window.Mouse = Mouse;
+  window.requestSmoothMouse(smoothMouse);
+}
+smoothMouse();
+
+document.addEventListener("mousemove", Mouse.events.move);
+
+document.addEventListener("touchmove", Mouse.events.move);
+document.addEventListener("mousedown", Mouse.events.down);
+
+document.addEventListener("touchstart", Mouse.events.down);
+document.addEventListener("touchend", Mouse.events.up);
+document.addEventListener("mouseup", Mouse.events.up);
+/**
  * User: chris
  * Date: 02/10/12
  * Time: 9:53 AM
