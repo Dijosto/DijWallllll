@@ -1,5 +1,7 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
 <html>
-<a href="#" class="musicPlay" touchstart="interactArt();">Art</a>
+<a href="#" class="musicPlay" onmousedown="interactArt();">Art</a>
 <div id="interactiveArt" style="display: none;">
 <style>
     <!-- chris shier, noisia@gmail.com, http://csh.bz -->
@@ -11,7 +13,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-touch-fullscreen" content="yes">
-    <link rel="stylesheet" type="text/css" href="./css/pair.css">
+    <link rel="stylesheet" type="text/css" href="https://raw.githubusercontent.com/Dijosto/Structured-Programming-1/master/pair.css">
     <link rel="icon" href="http://csh.bz/favicon.ico">
     <link rel="image_src" href="http://csh.bz/line/img/05x501.png">
     <meta property="og:image" content="http://csh.bz/line/img/05x501.png">
@@ -19,12 +21,12 @@
     </style>
 	
 
-<canvas id="canvas" height="914" width="725">try this in a browser that supports the canvas tag</canvas>
-
+<canvas id="canvas" height="914" width="725"></canvas>
+<script type="text/javascript" src="https://raw.githubusercontent.com/Dijosto/DijWal/master/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" async="" src="http://www.google-analytics.com/ga.js"></script>
-<script type="text/javascript" src="./js/window.js"></script>
-<script type="text/javascript" src="./js/mouse.js"></script>
-<script type="text/javascript" src="./js/canvas.js"></script>
+<script type="text/javascript" src="http://csh.bz/line/js/window.js"></script>
+<script type="text/javascript" src="http://csh.bz/line/js/mouse.js"></script>
+<script type="text/javascript" src="http://csh.bz/line/js/canvas.js"></script>
 <script type="text/javascript">
 
 function clear(){
@@ -74,7 +76,6 @@ animloop();
     })();
 </script>
 </div>
-<div id="everythingElse">
 <head>
 <style>
 .interactiveArt {
@@ -244,6 +245,7 @@ a {
 	
 }
 </style>
+<div id="everythingElse">
 <h2> DijWal Music</h2>
 	<h1> What is this? </h1>
 	<p> this is a site that  I've been working on that will allow you to 
@@ -258,10 +260,34 @@ a {
 <body>
 
 <script>
-function stopMusic(){
-	document.getElementById("media").src=""
+function interactArt() {
+    var x = document.getElementById("interactiveArt");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+	var z = document.getElementById("everythingElse");
+    if (z.style.display === "none") {
+        z.style.display = "block";
+    } else {
+        z.style.display = "none";
+    }
 }
-function selectMusic(){
+</script>
+
+
+
+<script type="text/javascript">
+function musicStahp(){
+                     document.getElementById("media").src=""
+}
+</script>
+<a href="#" class="musicStop" id="musicStahp"onmousedown="musicStahp();">Stop</a>
+
+
+<script type="text/javascript">
+	function musicPlay(){
 	var select = document.querySelector("#musicSelect");
 	select = select.value;
 	if (select == 1){
@@ -299,27 +325,7 @@ function selectMusic(){
 	}
 }
 </script>
-<script>
-function interactArt() {
-    var x = document.getElementById("interactiveArt");
-    if (x.style.display === "none") {
-        x.style.display = "block";
-    } else {
-        x.style.display = "none";
-    }
-	var z = document.getElementById("everythingElse");
-    if (z.style.display === "none") {
-        z.style.display = "block";
-    } else {
-        z.style.display = "none";
-    }
-}
-</script>
-
-
-
-<a href="#" class="musicStop" touchstart="stopMusic();">Stop</a>
-<a href="#" class="musicPlay" touchstart="selectMusic();">Play</a>
+<a href="#" class="musicPlay" onmousedown="musicPlay();">Play</a>
 
 <select id="musicSelect">
 	<option value="1">01 In My Dreams by Kid Cudi</option>
@@ -341,7 +347,7 @@ function interactArt() {
 </select>
 
 </body>
-<video autoplay="" id="media" loop> <source src="https://Indexer:qWeR@nem3s.is/files/music/requests/Kid%20Cudi/Man%20On%20The%20Moon%20The%20End%20Of%20Day%20%28Int%27l%20Version%29%20%28Album%29/01%20In%20My%20Dreams%20%28Cudder%20Anthem%29%20%28Album%20Version%20Explicit%29.flac" type="audio/flac">
+<video autoplay="" id="media" loop> 
 </video>
 </div>
 </html>
