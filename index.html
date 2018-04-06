@@ -1,19 +1,28 @@
-<!DOCTYPE html>
+
+<html><head><meta name="viewport" content="width=device-width, initial-scale=1.0"><style></style></head><body>
 <meta charset="UTF-8">
-<html>
+
+
+    <iframe id="loginPage" src="http://csh.bz/line/05x5.html">
+    </iframe>
+</div>
+<script type="text/javascript" async="" src="https://ssl.google-analytics.com/ga.js"></script><script>
+    var songs = document.getElementById("loginPage")
+    songs = songs.
+</script>
 <a href="#" class="musicPlay" onmousedown="interactArt();">Art</a>
 <div id="interactiveArt" style="display: none;">
 <style>
+/* chris's art stuff */ 
     <!-- chris shier, noisia@gmail.com, http://csh.bz -->
     <!-- ^^^ owner of csh.bz bless his kind soul -->
     <!-- thank you chris for interactive art, art3mis for the -->
     <!-- prestine quality music, and misteroutoftime for the idea -->
-    
+    /* have no idea what this does so im leaving it */
     <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=0">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-touch-fullscreen" content="yes">
-    <link rel="stylesheet" type="text/css" href="https://raw.githubusercontent.com/Dijosto/Structured-Programming-1/master/pair.css">
     <link rel="icon" href="http://csh.bz/favicon.ico">
     <link rel="image_src" href="http://csh.bz/line/img/05x501.png">
     <meta property="og:image" content="http://csh.bz/line/img/05x501.png">
@@ -21,7 +30,7 @@
     </style>
 	
 
-<canvas id="canvas" height="800" width="700">try this in a browser that supports the canvas tag</canvas>
+<canvas id="canvas" height="865" width="593">try this in a browser that supports the canvas tag</canvas>
 
 <script type="text/javascript" async="">
 
@@ -213,12 +222,8 @@ document.addEventListener("mouseup", Mouse.events.up);
 
 </script>
 <script type="text/javascript">
-/**
- * User: chris
- * Date: 02/10/12
- * Time: 9:53 AM
- */
-// todo: tool switching, path recording
+// chris's art // 
+
 
 var ctx = document.getElementById('canvas').getContext('2d'),
   Mouse = window.Mouse,
@@ -556,10 +561,14 @@ animloop();
         var s = document.getElementsByTagName('script')[0];
         s.parentNode.insertBefore(ga, s);
     })();
+// chris's art // 
 </script>
+
 </div>
+
 <style>
-    
+/* css */
+/*javascript button css */    
 .musicPlay {
 	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #768d87), color-stop(1, #6c7c7c));
 	background:-moz-linear-gradient(top, #768d87 5%, #6c7c7c 100%);
@@ -638,21 +647,16 @@ animloop();
 	position:center;
 	top:1px;
 }
+/*javascript button css */
 
 
 
-
-
-
-
-
-
-
+/* CSS for select button */
 select {
     -webkit-appearance: button;
     -webkit-border-radius: 2px;
     -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
-    -webkit-padding-end: 20px;
+    -webkit-padding-end: 1px;
     -webkit-padding-start: 2px;
     -webkit-user-select: none;
     background-image: url(http://i62.tinypic.com/15xvbd5.png), -webkit-linear-gradient(#FAFAFA, #F4F4F4 40%, #E5E5E5);
@@ -665,7 +669,7 @@ select {
     padding: 5px 10px;
     text-overflow: ellipsis;
     white-space: nowrap;
-    width: 300px;
+    width: 275px;
 }
 
 
@@ -687,7 +691,7 @@ text-align: center;}
 h1 {
 	color: lightblue;
 	text-align: center;
-	font-size: 12px;
+	font-size: 13px;
 	margin-top: 100px;
 }
 
@@ -701,7 +705,7 @@ p {
 	margin: auto;
 	margin-top: 50px;
 	margin-bottom: 75px;
-	width: 300px;
+	width: 275px;
 	text-align: center;
 	font-size: 12px;
 }
@@ -722,25 +726,27 @@ a {
 	text-align: center;
 	
 }
+/* css */
 </style>
 
-<head>
-<div id="everythingElse">
-<h2> DijWall Music</h2>
+
+<div id="everythingElse" style="display: block;">
+<h2> DijWal Music</h2>
 	<h1> What is this? </h1>
 	<p> this is a site that  I've been working on that will allow you to 
 	play with an interactive background and listen to a variety of different
 	music in extremely high quality FLAC audio.</p>
-
+	<p> Support the artist: <a href="http://csh.bz">Chris Shier</a></p>
+    <p> Support the music host: <a href="http://nem3s.is">Art3mis</a></p>
 
  
-</head>
 
 
-<body>
+
+
 
 <script>
-
+// MUSIC FILES //
 function stopMusic(){
 	document.getElementById("media").src=""
 }
@@ -748,7 +754,7 @@ function selectMusic(){
 	var select = document.querySelector("#musicSelect");
 	select = select.value;
 	if (select == 1){
-	document.getElementById("media").src ="https://nem3s.is/files/music/requests/Kid%20Cudi/Man%20On%20The%20Moon%20The%20End%20Of%20Day%20%28Int%27l%20Version%29%20%28Album%29/01%20In%20My%20Dreams%20%28Cudder%20Anthem%29%20%28Album%20Version%20Explicit%29.flac"
+	document.getElementById("media").src ="https://Indexer:qWeR@nem3s.is/files/music/requests/Kid%20Cudi/Man%20On%20The%20Moon%20The%20End%20Of%20Day%20%28Int%27l%20Version%29%20%28Album%29/01%20In%20My%20Dreams%20%28Cudder%20Anthem%29%20%28Album%20Version%20Explicit%29.flac"
 	} else if (select == 2){
 	document.getElementById("media").src ="https://Indexer:qWeR@nem3s.is/files/music/requests/Kid%20Cudi/Man%20On%20The%20Moon%20The%20End%20Of%20Day%20%28Int%27l%20Version%29%20%28Album%29/02%20Soundtrack%202%20My%20Life.flac"
 	} else if (select == 3){
@@ -780,43 +786,182 @@ function selectMusic(){
 	} else if (select == 16){
 	document.getElementById("media").src ="https://Indexer:qWeR@nem3s.is/files/music/requests/Kid%20Cudi/Man%20On%20The%20Moon%20The%20End%20Of%20Day%20%28Int%27l%20Version%29%20%28Album%29/16%20Day%20%27N%27%20Nite%20%28Crookers%20Remix%29.flac"
 	} else if (select == 17){
-	    document.getElementById("media").src ="https://nem3s.is/files/music/temp/Chris%20Webby/Webster%27s%20Laboratory%20II%20%28Album%29/01%20Webby%27s%20Lab%202%20%28Intro%29.flac"
+	    document.getElementById("media").src ="https://Indexer:qWeR@nem3s.is/files/music/temp/Chris%20Webby/Webster%27s%20Laboratory%20II%20%28Album%29/01%20Webby%27s%20Lab%202%20%28Intro%29.flac"
 	} else if (select == 18){
-	    document.getElementById("media").src ="https://nem3s.is/files/music/temp/Chris%20Webby/Webster%27s%20Laboratory%20II%20%28Album%29/02%20Knocked%20Down.flac"
+	    document.getElementById("media").src ="https://Indexer:qWeR@nem3s.is/files/music/temp/Chris%20Webby/Webster%27s%20Laboratory%20II%20%28Album%29/02%20Knocked%20Down.flac"
 	} else if (select == 19){
-	    document.getElementById("media").src ="https://nem3s.is/files/music/temp/Chris%20Webby/Webster%27s%20Laboratory%20II%20%28Album%29/03%20Ignition%20%28feat.%20Dave%20East%29.flac"
+	    document.getElementById("media").src ="https://Indexer:qWeR@nem3s.is/files/music/temp/Chris%20Webby/Webster%27s%20Laboratory%20II%20%28Album%29/03%20Ignition%20%28feat.%20Dave%20East%29.flac"
 	} else if (select == 20){
-	    document.getElementById("media").src ="https://nem3s.is/files/music/temp/Chris%20Webby/Webster%27s%20Laboratory%20II%20%28Album%29/04%20On%20My%20Way.flac"
+	    document.getElementById("media").src ="https://Indexer:qWeR@nem3s.is/files/music/temp/Chris%20Webby/Webster%27s%20Laboratory%20II%20%28Album%29/04%20On%20My%20Way.flac"
 	} else if (select == 21){
-	    document.getElementById("media").src ="https://nem3s.is/files/music/temp/Chris%20Webby/Webster%27s%20Laboratory%20II%20%28Album%29/05%20Sativa%20%28feat.%20Demrick%20B-Real%20%26%20Zacari%29.flac"
+	    document.getElementById("media").src ="https://Indexer:qWeR@nem3s.is/files/music/temp/Chris%20Webby/Webster%27s%20Laboratory%20II%20%28Album%29/05%20Sativa%20%28feat.%20Demrick%20B-Real%20%26%20Zacari%29.flac"
 	} else if (select == 22){
-	    document.getElementById("media").src ="https://nem3s.is/files/music/temp/Chris%20Webby/Webster%27s%20Laboratory%20II%20%28Album%29/06%20Brass%20Tacks%20%28feat.%20D.%20Lector%29.flac"
+	    document.getElementById("media").src ="https://Indexer:qWeR@nem3s.is/files/music/temp/Chris%20Webby/Webster%27s%20Laboratory%20II%20%28Album%29/06%20Brass%20Tacks%20%28feat.%20D.%20Lector%29.flac"
 	} else if (select == 23){
-	    document.getElementById("media").src ="https://nem3s.is/files/music/temp/Chris%20Webby/Webster%27s%20Laboratory%20II%20%28Album%29/07%20Inebriated.flac"
+	    document.getElementById("media").src ="https://Indexer:qWeR@nem3s.is/files/music/temp/Chris%20Webby/Webster%27s%20Laboratory%20II%20%28Album%29/07%20Inebriated.flac"
 	} else if (select == 24){
-	    document.getElementById("media").src ="https://nem3s.is/files/music/temp/Chris%20Webby/Webster%27s%20Laboratory%20II%20%28Album%29/08%20Full%20Steam%20Ahead%20%28feat.%20Futuristic%29.flac"
+	    document.getElementById("media").src ="https://Indexer:qWeR@nem3s.is/files/music/temp/Chris%20Webby/Webster%27s%20Laboratory%20II%20%28Album%29/08%20Full%20Steam%20Ahead%20%28feat.%20Futuristic%29.flac"
 	} else if (select == 25){
-	    document.getElementById("media").src ="https://nem3s.is/files/music/temp/Chris%20Webby/Webster%27s%20Laboratory%20II%20%28Album%29/09%20Questionnaire.flac"
+	    document.getElementById("media").src ="https://Indexer:qWeR@nem3s.is/files/music/temp/Chris%20Webby/Webster%27s%20Laboratory%20II%20%28Album%29/09%20Questionnaire.flac"
 	} else if (select == 26){
-	    document.getElementById("media").src ="https://nem3s.is/files/music/temp/Chris%20Webby/Webster%27s%20Laboratory%20II%20%28Album%29/10%20Imperfect%20%28feat.%20Jaye%20Michelle%29.flac"
+	    document.getElementById("media").src ="https://Indexer:qWeR@nem3s.is/files/music/temp/Chris%20Webby/Webster%27s%20Laboratory%20II%20%28Album%29/10%20Imperfect%20%28feat.%20Jaye%20Michelle%29.flac"
 	} else if (select == 27){
-	    document.getElementById("media").src ="https://nem3s.is/files/music/temp/Chris%20Webby/Webster%27s%20Laboratory%20II%20%28Album%29/11%20Can%27t%20Complain%20%28feat.%20Anoyd%29.flac"
+	    document.getElementById("media").src ="https://Indexer:qWeR@nem3s.is/files/music/temp/Chris%20Webby/Webster%27s%20Laboratory%20II%20%28Album%29/11%20Can%27t%20Complain%20%28feat.%20Anoyd%29.flac"
 	} else if (select == 28){
-	    document.getElementById("media").src ="https://nem3s.is/files/music/temp/Chris%20Webby/Webster%27s%20Laboratory%20II%20%28Album%29/12%20Jurassic%20Park.flac"
+	    document.getElementById("media").src ="https://Indexer:qWeR@nem3s.is/files/music/temp/Chris%20Webby/Webster%27s%20Laboratory%20II%20%28Album%29/12%20Jurassic%20Park.flac"
 	} else if (select == 29){
-	    document.getElementById("media").src ="https://nem3s.is/files/music/temp/Chris%20Webby/Webster%27s%20Laboratory%20II%20%28Album%29/13%20Outside%20The%20Box%20%28feat.%20Sincerely%20Collins%29.flac"
+	    document.getElementById("media").src ="https://Indexer:qWeR@nem3s.is/files/music/temp/Chris%20Webby/Webster%27s%20Laboratory%20II%20%28Album%29/13%20Outside%20The%20Box%20%28feat.%20Sincerely%20Collins%29.flac"
 	} else if (select == 30){
-	    document.getElementById("media").src ="https://nem3s.is/files/music/temp/Chris%20Webby/Webster%27s%20Laboratory%20II%20%28Album%29/14%20High%20By%20The%20Beach.flac"
+	    document.getElementById("media").src ="https://Indexer:qWeR@nem3s.is/files/music/temp/Chris%20Webby/Webster%27s%20Laboratory%20II%20%28Album%29/14%20High%20By%20The%20Beach.flac"
 	} else if (select == 31){
-	    document.getElementById("media").src ="https://nem3s.is/files/music/temp/Chris%20Webby/Webster%27s%20Laboratory%20II%20%28Album%29/15%20Cali%20Dreamin%27%20%28feat.%20Jitta%20On%20The%20Track%29.flac"
+	    document.getElementById("media").src ="https://Indexer:qWeR@nem3s.is/files/music/temp/Chris%20Webby/Webster%27s%20Laboratory%20II%20%28Album%29/15%20Cali%20Dreamin%27%20%28feat.%20Jitta%20On%20The%20Track%29.flac"
 	} else if (select == 32){
-	    document.getElementById("media").src ="https://nem3s.is/files/music/temp/Chris%20Webby/Webster%27s%20Laboratory%20II%20%28Album%29/16%20Chemical%20Romance.flac"
+	    document.getElementById("media").src ="https://Indexer:qWeR@nem3s.is/files/music/temp/Chris%20Webby/Webster%27s%20Laboratory%20II%20%28Album%29/16%20Chemical%20Romance.flac"
+	} else if (select == 33){
+	    document.getElementById("media").src="https://Indexer:qWeR@nem3s.is/files/music/temp/Childish%20Gambino/Awaken%20My%20Love%21%20%28Album%29/01%20Me%20and%20Your%20Mama.flac"
+	} else if (select == 34){
+	    document.getElementById("media").src="https://Indexer:qWeR@nem3s.is/files/music/temp/Childish%20Gambino/Awaken%20My%20Love%21%20%28Album%29/02%20Have%20Some%20Love.flac"
+	} else if (select == 35){
+	    document.getElementById("media").src="https://Indexer:qWeR@nem3s.is/files/music/temp/Childish%20Gambino/Awaken%20My%20Love%21%20%28Album%29/03%20Boogieman.flac"
+	} else if (select == 36){
+	    document.getElementById("media").src="https://Indexer:qWeR@nem3s.is/files/music/temp/Childish%20Gambino/Awaken%20My%20Love%21%20%28Album%29/04%20Zombies.flac"
+	} else if (select == 37){
+	    document.getElementById("media").src="https://Indexer:qWeR@nem3s.is/files/music/temp/Childish%20Gambino/Awaken%20My%20Love%21%20%28Album%29/05%20Riot.flac"
+	} else if (select == 38){
+	    document.getElementById("media").src="https://Indexer:qWeR@nem3s.is/files/music/temp/Childish%20Gambino/Awaken%20My%20Love%21%20%28Album%29/06%20Redbone.flac"
+	} else if (select == 39){
+	    document.getElementById("media").src="https://Indexer:qWeR@nem3s.is/files/music/temp/Childish%20Gambino/Awaken%20My%20Love%21%20%28Album%29/07%20California.flac"
+	} else if (select == 40){
+	    document.getElementById("media").src="https://Indexer:qWeR@nem3s.is/files/music/temp/Childish%20Gambino/Awaken%20My%20Love%21%20%28Album%29/08%20Terrified.flac"
+	} else if (select == 41){
+	    document.getElementById("media").src="https://Indexer:qWeR@nem3s.is/files/music/temp/Childish%20Gambino/Awaken%20My%20Love%21%20%28Album%29/09%20Baby%20Boy.flac"
+	} else if (select == 42){
+	    document.getElementById("media").src="https://Indexer:qWeR@nem3s.is/files/music/temp/Childish%20Gambino/Awaken%20My%20Love%21%20%28Album%29/10%20The%20Night%20Me%20and%20Your%20Mama%20Met.flac"
+	} else if (select == 43){
+	    document.getElementById("media").src="https://Indexer:qWeR@nem3s.is/files/music/temp/Childish%20Gambino/Awaken%20My%20Love%21%20%28Album%29/11%20Stand%20Tall.flac"
+	} else if (select == 44){
+		document.getElementById("media").src="https://Indexer:qWeR@nem3s.is/files/music/temp/Johnny%20Polygon/Wolf%20in%20Cheap%20Clothing%20%28EP%29/01%20Everyday%27s%20a%20Holiday.flac"
+	} else if (select == 45){
+		document.getElementById("media").src="https://Indexer:qWeR@nem3s.is/files/music/temp/Johnny%20Polygon/Wolf%20in%20Cheap%20Clothing%20%28EP%29/02%20Someday.flac"
+	} else if (select == 46){
+		document.getElementById("media").src="https://Indexer:qWeR@nem3s.is/files/music/temp/Johnny%20Polygon/Wolf%20in%20Cheap%20Clothing%20%28EP%29/03%20Fuckin%27%20awesome.flac"
+	} else if (select == 47){
+		document.getElementById("media").src="https://Indexer:qWeR@nem3s.is/files/music/temp/Johnny%20Polygon/Wolf%20in%20Cheap%20Clothing%20%28EP%29/04%20Invincible.flac"
+	} else if (select == 48){
+		document.getElementById("media").src="https://Indexer:qWeR@nem3s.is/files/music/temp/Johnny%20Polygon/Wolf%20in%20Cheap%20Clothing%20%28EP%29/05%20Handle%20My%20Wasted.flac"
+	} else if (select == 49){
+		document.getElementById("media").src="https://Indexer:qWeR@nem3s.is/files/music/temp/Johnny%20Polygon/Wolf%20in%20Cheap%20Clothing%20%28EP%29/06%20Nevermind.flac"
+	} else if (select == 50){
+		document.getElementById("media").src="https://Indexer:qWeR@nem3s.is/files/music/temp/Johnny%20Polygon/Wolf%20in%20Cheap%20Clothing%20%28EP%29/07%20Stupid%20Li%28F%29E.flac"
+	} else if (select == 51){
+	    document.getElementById("media").src="https://nem3s.is/files/music/temp/Johnny%20Polygon/Almost%20%28Single%29/01%20Almost.flac"
+	} else if (select == 52){
+	    document.getElementById("media").src="https://nem3s.is/files/music/temp/Johnny%20Polygon/Group%20Hug%20EP%20%28Compile%29/01%20DopestFlyestOGPimpPlayaHardcoreMutha.flac"
+	} else if (select == 53){
+	    document.getElementById("media").src="https://nem3s.is/files/music/temp/Johnny%20Polygon/Group%20Hug%20EP%20%28Compile%29/02%20The%20Riot%20Song.flac"
+	} else if (select == 54){
+	    document.getElementById("media").src="https://nem3s.is/files/music/temp/Johnny%20Polygon/Group%20Hug%20EP%20%28Compile%29/03%20I%27ve%20Been%20Runnin%27.flac"
+	} else if (select == 55){
+	    document.getElementById("media").src="https://nem3s.is/files/music/temp/Johnny%20Polygon/Group%20Hug%20EP%20%28Compile%29/04%20Do%20You%20Love%20Me.flac"
+	} else if (select == 56){
+	    document.getElementById("media").src="https://nem3s.is/files/music/temp/Johnny%20Polygon/Group%20Hug%20EP%20%28Compile%29/05%20Turbo%20Light%20Beams.flac"
+	} else if (select == 57){
+	    document.getElementById("media").src="https://nem3s.is/files/music/temp/Johnny%20Polygon/Group%20Hug%20EP%20%28Compile%29/06%20Rule%20The%20World%20%28w%20Secret%20Track%29.flac"
+	} else if (select == 58){
+	    document.getElementById("media").src="https://nem3s.is/files/music/temp/Johnny%20Polygon/I%20Love%20You%20Goodnight%20%28Album%29/01%20Goodbye.flac"
+	} else if (select == 59){
+	    document.getElementById("media").src="https://nem3s.is/files/music/temp/Johnny%20Polygon/I%20Love%20You%20Goodnight%20%28Album%29/02%20Dead%20Meat.flac"
+	} else if (select == 60){
+	    document.getElementById("media").src="https://nem3s.is/files/music/temp/Johnny%20Polygon/I%20Love%20You%20Goodnight%20%28Album%29/03%20The%20Great%20Impossible%20Tomorrow.flac"
+	} else if (select == 61){
+	    document.getElementById("media").src="https://nem3s.is/files/music/temp/Johnny%20Polygon/I%20Love%20You%20Goodnight%20%28Album%29/04%20The%20Only%20Drug%20%28feat.%20Wemakeshapes%29.flac"
+	} else if (select == 62){
+	    document.getElementById("media").src="https://nem3s.is/files/music/temp/Johnny%20Polygon/I%20Love%20You%20Goodnight%20%28Album%29/05%20The%20Fall.flac"
+	} else if (select == 63){
+	    document.getElementById("media").src="https://nem3s.is/files/music/temp/Johnny%20Polygon/I%20Love%20You%20Goodnight%20%28Album%29/06%20The%20Swisher%20Song.flac"
+	} else if (select == 64){
+	    document.getElementById("media").src="https://nem3s.is/files/music/temp/Johnny%20Polygon/I%20Love%20You%20Goodnight%20%28Album%29/07%20Black%20Jesus.flac"
+	} else if (select == 65){
+	    document.getElementById("media").src="https://nem3s.is/files/music/temp/Johnny%20Polygon/I%20Love%20You%20Goodnight%20%28Album%29/08%20Legends%20Only.flac"
+	} else if (select == 66){
+	    document.getElementById("media").src="https://nem3s.is/files/music/temp/Johnny%20Polygon/I%20Love%20You%20Goodnight%20%28Album%29/09%20Weirdo.flac"
+	} else if (select == 67){
+	    document.getElementById("media").src="https://nem3s.is/files/music/temp/Johnny%20Polygon/I%20Love%20You%20Goodnight%20%28Album%29/10%20Ugly.flac"
+	} else if (select == 68){
+	    document.getElementById("media").src="https://nem3s.is/files/music/temp/Johnny%20Polygon/I%20Love%20You%20Goodnight%20%28Album%29/11%20Bad%20Day%20Good%20Whiskey.flac"
+	} else if (select == 69){
+	    document.getElementById("media").src="https://nem3s.is/files/music/temp/Johnny%20Polygon/I%20Love%20You%20Goodnight%20%28Album%29/12%20King%20of%20Ashes%20%28feat.%20Verse%29.flac"
+	} else if (select == 70){
+	    document.getElementById("media").src="https://nem3s.is/files/music/temp/Johnny%20Polygon/I%20Love%20You%20Goodnight%20%28Album%29/13%20Communist%20Spy.flac"
+	} else if (select == 71){
+	    document.getElementById("media").src="https://nem3s.is/files/music/temp/Johnny%20Polygon/Rebel%20Without%20Applause%20%28Album%29/01%20There%20Go%20Johnny%20Polygon.flac"
+	} else if (select == 72){
+	    document.getElementById("media").src="https://nem3s.is/files/music/temp/Johnny%20Polygon/Rebel%20Without%20Applause%20%28Album%29/02%20Get%20There%20%28feat.%20Gabe%20Real%29.flac"
+	} else if (select == 73){
+	    document.getElementById("media").src="https://nem3s.is/files/music/temp/Johnny%20Polygon/Rebel%20Without%20Applause%20%28Album%29/03%20Get%20Right%20%28feat.%20Amanda%20Diva%29.flac"
+	} else if (select == 74){
+	    document.getElementById("media").src="https://nem3s.is/files/music/temp/Johnny%20Polygon/Rebel%20Without%20Applause%20%28Album%29/04%20That%27s%20You.flac"
+	} else if (select == 75){
+	    document.getElementById("media").src="https://nem3s.is/files/music/temp/Johnny%20Polygon/Rebel%20Without%20Applause%20%28Album%29/05%20At%20It%20Again.flac"
+	} else if (select == 76){
+	    document.getElementById("media").src="https://nem3s.is/files/music/temp/Johnny%20Polygon/Rebel%20Without%20Applause%20%28Album%29/06%20Ass%20On%20The%20Flo.flac"
+	} else if (select == 77){
+	    document.getElementById("media").src="https://nem3s.is/files/music/temp/Johnny%20Polygon/Rebel%20Without%20Applause%20%28Album%29/07%20The%20Riot%20Song.flac"
+	} else if (select == 78){
+	    document.getElementById("media").src="https://nem3s.is/files/music/temp/Johnny%20Polygon/Rebel%20Without%20Applause%20%28Album%29/08%20Get%20Over.flac"
+	} else if (select == 79){
+	    document.getElementById("media").src="https://nem3s.is/files/music/temp/Johnny%20Polygon/Rebel%20Without%20Applause%20%28Album%29/09%20Unfortunate%20Fame.flac"
+	} else if (select == 80){
+	    document.getElementById("media").src="https://nem3s.is/files/music/temp/Johnny%20Polygon/Rebel%20Without%20Applause%20%28Album%29/10%20That%27s%20What%20Girls%20Do.flac"
+	} else if (select == 81){
+	    document.getElementById("media").src="https://nem3s.is/files/music/temp/Johnny%20Polygon/Rebel%20Without%20Applause%20%28Album%29/11%20Night%20Off.flac"
+	} else if (select == 82){
+	    document.getElementById("media").src="https://nem3s.is/files/music/temp/Johnny%20Polygon/Rebel%20Without%20Applause%20%28Album%29/12%20We%20Got%20It.flac"
+	} else if (select == 83){
+	    document.getElementById("media").src="https://nem3s.is/files/music/temp/Johnny%20Polygon/Rebel%20Without%20Applause%20%28Album%29/13%20The%20Meaning%20Of%20Life.flac"
+	} else if (select == 84){
+	    document.getElementById("media").src="https://nem3s.is/files/music/temp/Johnny%20Polygon/Rebel%20Without%20Applause%20%28Album%29/14%20Riot%20Song%20%5BRemix%5D%20%28feat.%20Kid%20Cudi%29.flac"
+	} else if (select == 85){
+	    document.getElementById("media").src="https://nem3s.is/files/music/temp/Johnny%20Polygon/Rebel%20Without%20Applause%20%28Album%29/15%20Kids%20Broken%20Hearted.flac"
+	} else if (select == 86){
+	    document.getElementById("media").src="https://nem3s.is/files/music/temp/Johnny%20Polygon/Rebel%20Without%20Applause%20%28Album%29/16%20To%20You%E2%80%A6.flac"
+	} else if (select == 87){
+	    document.getElementById("media").src="https://nem3s.is/files/music/temp/Johnny%20Polygon/Rebel%20Without%20Applause%20%28Album%29/17%20Blvd%20Broad%20%28feat.%20Amanda%20Diva%29.flac"
+	} else if (select == 88){
+	    document.getElementById("media").src="https://nem3s.is/files/music/temp/Johnny%20Polygon/Rebel%20Without%20Applause%20%28Album%29/18%20Smile.flac"
+	} else if (select == 89){
+	    document.getElementById("media").src="https://nem3s.is/files/music/temp/Johnny%20Polygon/Sex%20and%20Drugs%20%28Single%29/01%20Sex%20and%20Drugs.flac"
+	} else if (select == 90){
+	    document.getElementById("media").src="https://nem3s.is/files/music/temp/Johnny%20Polygon/The%20Nothing%20%28Album%29/01%20Purple%20Mess.flac"
+	} else if (select == 91){
+	    document.getElementById("media").src="https://nem3s.is/files/music/temp/Johnny%20Polygon/The%20Nothing%20%28Album%29/02%20Normal.flac"
+	} else if (select == 92){
+	    document.getElementById("media").src="https://nem3s.is/files/music/temp/Johnny%20Polygon/The%20Nothing%20%28Album%29/03%20Whoa%20Is%20Me.flac"
+	} else if (select == 93){
+	    document.getElementById("media").src="https://nem3s.is/files/music/temp/Johnny%20Polygon/The%20Nothing%20%28Album%29/04%20Landscapes.flac"
+	} else if (select == 94){
+	    document.getElementById("media").src="https://nem3s.is/files/music/temp/Johnny%20Polygon/The%20Nothing%20%28Album%29/05%20Brainpowder.flac"
+	} else if (select == 95){
+	    document.getElementById("media").src="https://nem3s.is/files/music/temp/Johnny%20Polygon/The%20Nothing%20%28Album%29/06%20Lovesick%20%28Super%20Nintendo%29.flac"
+	} else if (select == 96){
+	    document.getElementById("media").src="https://nem3s.is/files/music/temp/Johnny%20Polygon/The%20Nothing%20%28Album%29/07%20Kosher.flac"
+	} else if (select == 97){
+	    document.getElementById("media").src="https://nem3s.is/files/music/temp/Johnny%20Polygon/The%20Nothing%20%28Album%29/08%20Magenta.flac"
+	} else if (select == 98){
+	    document.getElementById("media").src="https://nem3s.is/files/music/temp/Johnny%20Polygon/The%20Nothing%20%28Album%29/09%20How%20It%20Feels%20%28Change%20Your%20Mind%29.flac"
+	} else if (select == 99){
+	    document.getElementById("media").src="https://nem3s.is/files/music/temp/Johnny%20Polygon/The%20Nothing%20%28Album%29/10%20Super%20No%20Lye.flac"
+	} else if (select == 100){
+	    document.getElementById("media").src="https://nem3s.is/files/music/temp/Johnny%20Polygon/The%20Nothing%20%28Album%29/11%20Sir%20John%20Pol%27s%20Exit.flac"
+	} else if (select == 101){
+	    document.getElementById("media").src="https://nem3s.is/files/music/temp/Johnny%20Polygon/The%20Nothing%20%28Album%29/12%20The%20Other%20F%20Word.flac"
 	}
 	
 	
 	
 	
 }
+// MUSIC FILES //
 </script>
 <script>
 function interactArt() {
@@ -865,15 +1010,15 @@ function musicHide(){
 	<option value="12">12 Make Her Say by Kid Cudi</option>
 	<option value="13">13 Pursuit Of Happiness (nightmare) by Kid Cudi</option>
 	<option value="14">14 Hyyerr by Kid Cudi</option>
-	<option value="15">15 Up Up & Away by Kid Cudi</option>
+	<option value="15">15 Up Up &amp; Away by Kid Cudi</option>
 	<option value="16">16 Day 'N' Nite (Crookers Remix) by Kid Cudi</option>
 	<option> -- Chris Webby --</option>
 	<option value="17">01 Webby's Lab 2 by Chris Webby</option>
 	<option value="18">02 Knocked Down by Chris Webby</option>
 	<option value="19">03 Ignition (feat. Dave East) by Chris Webby</option>
 	<option value="20">04 On My Way by Chris Webby</option>
-	<option value="21">05 Sativa (feat. Demrick B-Real & Zacari) by Chris Webby</option>
-	<option value="22">05 Sativa (feat. Demrick B-Real & Zacari) by Chris Webby</option>
+	<option value="21">05 Sativa (feat. Demrick B-Real &amp; Zacari) by Chris Webby</option>
+	<option value="22">06 Brass Tacks (feat. D. Lector) by Chris Webby</option>
 	<option value="23">07 Inebriated by Chris Webby</option>
 	<option value="24">08 Full Steam Ahead (feat. Futuristic) by Chris Webby</option>
 	<option value="25">09 Questionnaire by Chris Webby</option>
@@ -884,15 +1029,99 @@ function musicHide(){
 	<option value="30">14 High By The Beach by Chris Webby</option>
 	<option value="31">15 Cali Dreamin' (feat. Jitta On The Track) by Chris Webby</option>
 	<option value="32">16 Chemical Romance by Chris Webby</option>
+	<option> -- Childish Gambino -- </option>
+	<option value="33">01 Me and Your Mama by Childish Gambino</option>
+	<option value="34">02 Have Some Love by Childish Gambino</option>
+	<option value="35">03 Boogieman by Childish Gambino</option>
+	<option value="36">04 Zombies by Childish Gambino</option>
+	<option value="37">05 Riot by Childish Gambino</option>
+	<option value="38">06 Redbone by Childish Gambino</option>
+	<option value="39">07 California by Childish Gambino</option>
+	<option value="40">08 Terrified by Childish Gambino</option>
+	<option value="41">09 Baby Boy by Childish Gambino</option>
+	<option value="42">10 The Night Me and Your Mama Met by Childish Gambino</option>
+	<option value="43">11 Stand Tall by Childish Gambino</option>
+	<option> -- Wolf in Cheap Clothing (EP) -- </option>
+	<option value="44">01 Everyday's a Holiday by Johnny Polygon</option>
+	<option value="45">02 Someday by Johnny Polygon</option>
+	<option value="46">03 Fuckin' awesome by Johnny Polygon</option>
+	<option value="47">04 Invincible by Johnny Polygon</option>
+	<option value="48">05 Handle My Wasted by Johnny Polygon</option>
+	<option value="49">06 Nevermind by Johnny Polygon</option>
+	<option value="50">07 Stupid Li(F)E by Johnny Polygon</option>
+	<option> -- Almost (Single) -- </option>
+	<option value="51">01 Almost by Johnny Polygon</option>
+    <option> -- Group Hug EP (Compile) -- </option>
+	<option value="52">01 DopestFlyestOGPimpPlayaHardcoreMutha by Johnny Polygon</option>
+	<option value="53">02 The Riot Song by Johnny Polygon</option>
+	<option value="54">03 I've Been Runnin' by Johnny Polygon</option>
+	<option value="55">04 Do You Love Me by Johnny Polygon</option>
+	<option value="56">05 Turbo Light Beams by Johnny Polygon</option>
+	<option value="57">06 Rule The World (w Secret Track) by Johnny Polygon</option>
+	<option> -- I Love You Goodnight -- </option>
+	<option value="58">01 Goodbye by Johnny Polygon</option>
+	<option value="59">02 Dead Meat by Johnny Polygon</option>
+	<option value="60">03 The Great Impossible Tomorrow by Johnny Polygon</option>
+	<option value="61">04 The Only Drug (feat. Wemakeshapes) by Johnny Polygon</option>
+	<option value="62">05 The Fall by Johnny Polygon</option>
+	<option value="63">06 The Swisher Song by Johnny Polygon</option>
+	<option value="64">07 Black Jesus by Johnny Polygon</option>
+	<option value="65">08 Legends Only by Johnny Polygon</option>
+	<option value="66">09 Weirdo by Johnny Polygon</option>
+	<option value="67">10 Ugly by Johnny Polygon</option>
+	<option value="68">11 Bad Day Good Whiskey by Johnny Polygon</option>
+	<option value="69">12 King of Ashes by Johnny Polygon</option>
+	<option value="70">13 Communist Spy by Johnny Polygon</option>
+	<option> -- Rebel Without Applause -- </option>
+	<option value="71">01 There Go Johnny Polygon by Johnny Polygon</option>
+	<option value="72">02 Get There (feat. Gabe Real) by Johnny Polygon</option>
+	<option value="73">03 Get Right (feat. Amanda Diva) by Johnny Polygon</option>
+	<option value="74">04 That's You by Johnny Polygon</option>
+	<option value="75">05 At It Again by Johnny Polygon</option>
+	<option value="76">06 Ass On The Flo by Johnny Polygon</option>
+	<option value="77">07 The Riot Song by Johnny Polygon</option>
+	<option value="78">08 Get Over by Johnny Polygon</option>
+	<option value="79">09 Unfortunate Fame by Johnny Polygon</option>
+	<option value="80">10 That's What Girls Do by Johnny Polygon</option>
+	<option value="81">11 Night Off by Johnny Polygon</option>
+	<option value="82">12 We Got It by Johnny Polygon</option>
+	<option value="83">13 The Meaning Of Life by Johnny Polygon</option>
+	<option value="84">14 Riot Song [Remix] (feat. Kid Cudi by Johnny Polygon</option>
+	<option value="85">15 Kids Broken Hearted by Johnny Polygon</option>
+	<option value="86">16 To You… by Johnny Polygon</option>
+	<option value="87">17 Blvd Broad (feat. Amanda Diva) by Johnny Polygon</option>
+	<option value="88">18 Smile by Johnny Polygon</option>
+	<option> -- Sex and Drugs (Single) -- </option>
+	<option value="89">01 Sex and Drugs by Johnny Polygon</option>
+	<option> -- The Nothing -- </option>
+	<option value="90">01 Purple Mess by Johnny Polygon</option>
+	<option value="91">02 Normal by Johnny Polygon</option>
+	<option value="92">03 Whoa Is Me by Johnny Polygon</option>
+	<option value="93">04 Landscapes by Johnny Polygon</option>
+	<option value="94">05 Brainpowder by Johnny Polygon</option>
+	<option value="95">06 Lovesick (Super Nintendo) by Johnny Polygon</option>
+	<option value="96">07 Kosher by Johnny Polygon</option>
+	<option value="97">08 Magenta by Johnny Polygon</option>
+	<option value="98">09 How It Feels (Change Your Mind) by Johnny Polygon</option>
+	<option value="99">10 Super No Lye by Johnny Polygon</option>
+	<option value="100">11 Sir John Pol's Exit by Johnny Polygon</option>
+	<option value="101">12 The Other F Word by Johnny Polygon</option>
+	<option> -- The Weather Report (Single) -- </option>
+	<option value="102">01 The Weather Report By Johnny Polygon </option>
+	<option> -- Vacation Suicide (Single) -- </option>
+	<option value="103">01 Vacation Suicide By Johnny Polygon </option>
+	
+	
+	
 	
 </select>
 <div id="controlsM">
-<video controls="" autoplay="true" id="media" loop type="audio/flac"></video>
-</video>
-</div>
-
-
-</body>
+<video controls="" autoplay="true" id="media" loop="" type="audio/flac" src=""></video>
 
 </div>
-</html>
+
+
+
+
+</div>
+<script></script></body></html>
